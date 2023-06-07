@@ -9,16 +9,15 @@ module.exports = {
 		.setDescription('disconnect the bot to the current channel'),
 	async execute(interaction) {
         const player = useMasterPlayer();
-		const queue = useQueue(interaction.guild.id);
-		queue.delete();
-		console.log(queue)
         const connection = getVoiceConnection(interaction.guild.id);
-		if(connection){//e canale connesso è lo stesso dell'utente
-        	connection.destroy();
-			await interaction.reply(`Disconnecting, Bye`);
-		}
-		else{
+		if(!connection){//e canale connesso è lo stesso dell'utente
 			await interaction.reply(`I'm not connected u dumbass`);
+			return;
 		}
+		const queue = useQueue(interaction.guild.id);
+		if (queue)
+			queue.delete();
+		connection.destroy();
+		await interaction.reply(`Disconnecting, Bye`);
 	},
 };

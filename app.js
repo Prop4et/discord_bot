@@ -28,6 +28,11 @@ const player = new Player(client, {
 
 player.extractors.register(YouTubeExtractor);
 
+player.events.on('disconnect', (queue) => {
+    if (queue)
+        queue.delete();
+    console.log('disconnected')
+});
 
 player.events.on('playerStart', (queue, track) => {
     queue.metadata.channel.send(`Started playing **${track.title}**!`);

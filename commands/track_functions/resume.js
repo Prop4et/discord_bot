@@ -5,16 +5,17 @@ const { QueryType } = require('discord-player');
 var flag = true;
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('pause')
+		.setName('resume')
 		.setDescription('pauses the current track'),
 	async execute(interaction) { 
         const player = useMasterPlayer();
-        var connection = getVoiceConnection(interaction.guild.id);
-        const channel = interaction.member.voice.channel;
-        //console.log(connection.channel.id, channel.id)
-        //player.queue.node.pause();
         const queue = player.nodes.get(interaction.guild.id);
-        queue.node.resume();
-        await interaction.reply(`Pausing`);
+
+        if(!queue)
+            return await interaction.reply({content: `❌ | Nothing to resume, shithead.`, allowedMentions: { repliedUser: false }});
+        
+        const success = queue.node.resume();
+        return success ? await interaction.reply('▶️ | song resumed') : await interaction.reply({ content: `❌ | Something went wrong.`, allowedMentions: { repliedUser: false } });
+
 	},
 };

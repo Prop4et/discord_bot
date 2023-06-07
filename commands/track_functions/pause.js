@@ -9,12 +9,11 @@ module.exports = {
 		.setDescription('pauses the current track'),
 	async execute(interaction) { 
         const player = useMasterPlayer();
-        var connection = getVoiceConnection(interaction.guild.id);
-        const channel = interaction.member.voice.channel;
-        //console.log(connection.channel.id, channel.id)
-        //player.queue.node.pause();
         const queue = player.nodes.get(interaction.guild.id);
-        queue.node.pause();
-        await interaction.reply(`Pausing`);
+        if(!queue || !queue.isPlaying())
+            return await interaction.reply({content: `❌ | Nothing is playing right now donkey.`, allowedMentions: { repliedUser: false } });
+        
+        const success = queue.node.pause();
+        return success ? await interaction.reply('⏸️ | song paused') : await interaction.reply({ content: `❌ | Something went wrong.`, allowedMentions: { repliedUser: false } });
 	},
 };

@@ -89,24 +89,42 @@ module.exports = {
             if (!queue?.deleted) queue?.delete();
             return interaction.editReply({ content: `❌ | I can't join audio channel.`, allowedMentions: { repliedUser: false } });
         }
-        
-        res.playlist ? queue.addTrack(res.tracks) : queue.addTrack(res.tracks[0]);
-        
-        //TODO: change print for playlist
-        let song = res.tracks[0];
+        var descriptionStr = "";
+        var title;
+        var url;
+        var thumbnail;
+        if (res.playlist){
+            queue.addTrack(res.tracks);
+            for(var i = 0; i<res.tracks.length; i++){
+                descriptionStr += `Added **[${res.tracks[i].title}](${res.tracks[i].author})** to the queue\n`
+                title = res.playlist.title;
+                url = res.playlist.url;
+                console.log(res.playlist.thumbnail);
+                thumbnail = res.playlist.thumbnail.url;
+            }
+            console.log(res.thumbnail);
+        }else{
+            queue.addTrack(res.tracks[0]);
+            descriptionStr += `Added **[${res.tracks[0].title}](${res.tracks[0].author})** to the queue`
+            title = res.tracks[0].title;
+            url = res.tracks[0].url;
+            thumbnail = res.tracks[0].thumbnail;
+        }
+
         const embed = new EmbedBuilder()
             .setColor(0xFFFFFF)
-            .setTitle(song.title)
-            .setURL(song.url)
-            .setDescription(`Added **[${song.title}](${song.author})** to the queue`)
-            .setThumbnail(song.thumbnail)
-            .setFooter({text: song.duration});
+            .setTitle(title)
+            .setURL(url)
+            .setDescription(descriptionStr)
+            .setThumbnail(thumbnail)
+        if (!res.playlist) 
+            embed.setFooter({text: res.tracks[0].duration});
         
         if (!queue.isPlaying()) {
             await queue.node.play()
                 .catch((error) => {
-                    console.log(error);
-                    return interaction.reply({ content: `❌ | I can't play this track.`, allowedMentions: { repliedUser: false } });
+                    console.error(error);
+                    return interaction.editReply({ content: `❌ | I can't play this track.`, allowedMentions: { repliedUser: false } });
                 });
         }
         
