@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { joinVoiceChannel, getVoiceConnection, VoiceConnectionStatus , createAudioResource } = require('@discordjs/voice');
-const { useMasterPlayer } = require('discord-player');
+const { useMasterPlayer, useQueue } = require('discord-player');
 const { QueryType } = require('discord-player');
 var flag = true;
 module.exports = {
@@ -8,9 +8,15 @@ module.exports = {
 		.setName('resume')
 		.setDescription('pauses the current track'),
 	async execute(interaction) { 
-        const player = useMasterPlayer();
-        const queue = player.nodes.get(interaction.guild.id);
+        const queue =  useQueue(interaction.guild.id);
+        var connection = getVoiceConnection(interaction.guild.id);
+        const channel = interaction.member.voice.channel;
+        if(!connection)
+            return await interaction.reply({content: `❌ | Not connected.`, ephemeral:true, allowedMentions: { repliedUser: false} });
 
+        if(connection.joinConfig.channelId !== channel.id)
+            return await interaction.reply({content: `❌ | Wrong channel :/`, ephemeral:true, allowedMentions: { repliedUser: false} })
+            
         if(!queue)
             return await interaction.reply({content: `❌ | Nothing to resume, shithead.`, allowedMentions: { repliedUser: false }});
         
