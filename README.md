@@ -20,5 +20,5 @@ When elements are removed the queue shifts of a position from the deleted elemen
 - [ ] Backward, backwards a number of seconds in the track
 ### **Bot operations**
 The bot automatically disconnects if it isn't playing any track for a minute after a connect operation
-- [ ] Connect, connects to a voice channel
-- [ ] Disconnect, disconnects from a voice channel
+- [x] Connect, connects to a voice channel
+- [x] Disconnect, disconnects from a voice channel
