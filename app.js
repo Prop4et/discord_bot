@@ -1,21 +1,17 @@
 const fs = require('node:fs')
 const path = require('node:path')
 // Require the necessary discord.js classes
-const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Events, Collection } = require('discord.js');
 const { token } = require('./config.json');
 const { Player } = require('discord-player');
 const { YouTubeExtractor } = require("@discord-player/extractor");
 const cst = require(`${__dirname}/utils/constants`);
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions] });
 
 
 client.commands = new Collection();
-/*client.player = createAudioPlayer({
-    behaviors: {
-        noSubscriber: NoSubscriberBehavior.Pause,
-    }
-});*/
+
 const player = new Player(client, {
     ytdlOptions: cst.ytdlOptions
 });
@@ -31,7 +27,7 @@ player.events.on('disconnect', (queue) => {
 });
 
 player.events.on('playerStart', (queue, track) => {
-    queue.metadata.channel.send(`Started playing **${track.title}**`);
+    queue.metadata.channel.send(`▶️ Started playing **${track.title}**`);
 });
 
 player.events.on('playerPause', (queue, track) => {
