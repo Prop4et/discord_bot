@@ -25,7 +25,7 @@ client.config = cst.config;
 player.extractors.register(YouTubeExtractor);
 
 player.events.on('disconnect', (queue) => {
-    if (queue)
+    if (!queue.deleted)
         queue.delete();
     console.log('disconnected')
 });

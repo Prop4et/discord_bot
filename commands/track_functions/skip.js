@@ -19,6 +19,6 @@ module.exports = {
             return await interaction.reply({content: `❌ Nothing is playing right now donkey.`, allowedMentions: { repliedUser: false } });
         
         const success = queue.node.skip();
-        return success ? await interaction.reply('⏩ song skipped') : await interaction.reply({ content: `❌ Something went wrong.`, allowedMentions: { repliedUser: false } });
+        return success ? await interaction.reply('⏭️ song skipped') : await interaction.reply({ content: `❌ Something went wrong.`, allowedMentions: { repliedUser: false } });
 	},
 };

@@ -19,8 +19,8 @@ disconnects
 - [x] Skip, goes to the next track, if any
 - [ ] Stop, blocks the track and goes back at the beginning a start operation restarts the song from the beginning. If the song is stopped for more than 5 minutes the bot disconnects (TBD)
 - [ ] Restart, stop + play in a single command
-- [ ] Forward, forwards a number of seconds in the track
-- [ ] Backward, backwards a number of seconds in the track
+- [x] Forward, forwards a number of seconds in the track, automatically resumes to play
+- [x] Backward, backwards a number of seconds in the track, automatically resumes to play
 ### **Bot operations**
 The bot automatically disconnects if it isn't playing any track for a minute after a connect operation
 - [x] Connect, connects to a voice channel
