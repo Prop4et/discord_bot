@@ -136,10 +136,8 @@ module.exports = {
                 descriptionStr += `Added **[${res.tracks[i].title}](${res.tracks[i].author})** to the queue\n`
                 title = res.playlist.title;
                 url = res.playlist.url;
-                console.log(res.playlist.thumbnail);
                 thumbnail = res.playlist.thumbnail.url;
             }
-            console.log(res.thumbnail);
         }else{
             queue.addTrack(res.tracks[0]);
             descriptionStr += `Added **[${res.tracks[0].title}](${res.tracks[0].author})** to the queue`

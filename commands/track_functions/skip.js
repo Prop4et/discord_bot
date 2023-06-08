@@ -3,8 +3,8 @@ const { getVoiceConnection } = require('@discordjs/voice');
 const { useQueue } = require('discord-player');
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('pause')
-		.setDescription('pauses the current track'),
+		.setName('skip')
+		.setDescription('skips to the next track'),
 	async execute(interaction) { 
         var connection = getVoiceConnection(interaction.guild.id);
         const channel = interaction.member.voice.channel;
@@ -18,7 +18,7 @@ module.exports = {
         if(!queue || !queue.isPlaying())
             return await interaction.reply({content: `❌ Nothing is playing right now donkey.`, allowedMentions: { repliedUser: false } });
         
-        const success = queue.node.pause();
-        return success ? await interaction.reply('⏸️ song paused') : await interaction.reply({ content: `❌ Something went wrong.`, allowedMentions: { repliedUser: false } });
+        const success = queue.node.skip();
+        return success ? await interaction.reply('⏩ song skipped') : await interaction.reply({ content: `❌ Something went wrong.`, allowedMentions: { repliedUser: false } });
 	},
 };
