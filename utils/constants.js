@@ -2,10 +2,10 @@ const cst = {
     // Default config
     config: {
         deaf                : true,
-        defaultVolume       : 80,
+        defaultVolume       : 50,
         maxVolume           : 100,
         autoLeave           : true,
-        autoLeaveCD   : 5000,
+        autoLeaveCD         : 30000,
         displayVoiceState   : true,
     },
     ytdlOptions: {
