@@ -13,7 +13,6 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 
 
 client.commands = new Collection();
-client.queue = new Queue();
 /*client.player = createAudioPlayer({
     behaviors: {
         noSubscriber: NoSubscriberBehavior.Pause,
@@ -51,9 +50,7 @@ player.events.on('playerSkip', (queue, track) => {
 });
 
 player.events.on('emptyChannel', (queue, track) => {
-    const connection = getVoiceConnection(interaction.guild.id);
-    if(connection)
-        connection.destroy();
+    console.log('empty channel')
 });
 
 

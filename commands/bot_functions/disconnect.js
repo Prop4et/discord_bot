@@ -11,10 +11,10 @@ module.exports = {
         const connection = getVoiceConnection(interaction.guild.id);
         const channel = interaction.member.voice.channel;
 		if(!connection)
-            return await interaction.reply({content: `❌ | Not connected.`, ephemeral:true, allowedMentions: { repliedUser: false} });
+            return await interaction.reply({content: `❌ Not connected.`, ephemeral:true, allowedMentions: { repliedUser: false} });
 
         if(connection.joinConfig.channelId !== channel.id)
-            return await interaction.reply({content: `❌ | Wrong channel :/`, ephemeral:true, allowedMentions: { repliedUser: false} })
+            return await interaction.reply({content: `❌ Wrong channel :/`, ephemeral:true, allowedMentions: { repliedUser: false} })
 
 		const queue = useQueue(interaction.guild.id);
 		if (queue)
