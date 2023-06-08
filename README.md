@@ -4,7 +4,7 @@
 The queue is deleted only when the bot is disconnected from the channel, when the delete command is issued.
 Elements are removed from the queue after being completely played, skipped or deleted
 When elements are removed the queue shifts of a position from the deleted element, so after removing a show command is used to display the new order of the elements
-- [ ] Remove, removes a track from the queue given its place inside the queue
+- [x] Remove, removes a track from the queue given its place inside the queue
 - [x] Show, shows the elements in order inside the queue, TODO: show the whole queue
 - [x] Shuffle, changes the order inside the queue in a pseudo random way
 - [x] Clear, deletes the whole queue
