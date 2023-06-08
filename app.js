@@ -7,7 +7,7 @@ const { createAudioPlayer, NoSubscriberBehavior } = require('@discordjs/voice');
 const { token } = require('./config.json');
 const { Player } = require('discord-player');
 const { YouTubeExtractor } = require("@discord-player/extractor");
-const { getVoiceConnection } = require('@discordjs/voice');
+const cst = require(`${__dirname}/utils/constants`);
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
 
@@ -19,11 +19,10 @@ client.commands = new Collection();
     }
 });*/
 const player = new Player(client, {
-    ytdlOptions: {
-        quality: 'highestaudio',
-        highWaterMark: 1 << 25
-    }
+    ytdlOptions: cst.ytdlOptions
 });
+
+client.config = cst.config;
 
 player.extractors.register(YouTubeExtractor);
 
