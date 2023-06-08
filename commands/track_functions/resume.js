@@ -1,8 +1,6 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const { joinVoiceChannel, getVoiceConnection, VoiceConnectionStatus , createAudioResource } = require('@discordjs/voice');
-const { useMasterPlayer, useQueue } = require('discord-player');
-const { QueryType } = require('discord-player');
-var flag = true;
+const { SlashCommandBuilder } = require('discord.js');
+const { getVoiceConnection } = require('@discordjs/voice');
+const { useQueue } = require('discord-player');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('resume')

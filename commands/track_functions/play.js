@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const { joinVoiceChannel, getVoiceConnection, VoiceConnectionStatus , createAudioResource } = require('@discordjs/voice');
+const { joinVoiceChannel, getVoiceConnection } = require('@discordjs/voice');
 const { useMasterPlayer, useQueue } = require('discord-player');
 const { QueryType } = require('discord-player');
 var flag = true;
