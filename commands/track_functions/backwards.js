@@ -39,7 +39,6 @@ module.exports = {
         if(fbw < 1)
             return await interaction.editReply({content: `❌ Wish we can turn back time 🎶`, ephemeral:true, allowedMentions: { repliedUser: false} })
         
-        queue.node.pause();
         const success = await queue.node.seek((fbw)*1000);
         if(success){
             const progress = queue.node.createProgressBar();

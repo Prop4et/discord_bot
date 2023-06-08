@@ -43,7 +43,6 @@ module.exports = {
         if(targetTime >= duration)
             return await interaction.editReply({content: `❌ Skip the whole song at this point`, ephemeral:true, allowedMentions: { repliedUser: false} })
         
-        queue.node.pause();
         const success = await queue.node.seek(targetTime*1000);
         if(success){
             const progress = queue.node.createProgressBar();

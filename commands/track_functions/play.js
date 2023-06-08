@@ -61,6 +61,7 @@ module.exports = {
                 leaveOnStop: interaction.client.config.autoLeave,
                 leaveOnStopCooldown: interaction.client.config.autoLeaveCD,
                 skipOnNoStream: interaction.client.config.autoLeave,
+                skipOnNoStreamCooldown: 30,
                 connectionTimeout: 999_999_999
             });
         }
