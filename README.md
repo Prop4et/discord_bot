@@ -12,7 +12,10 @@ When elements are removed the queue shifts of a position from the deleted elemen
 - [ ] Skip, reproduces the next track in the queue
 
 ### **Single song operations**
-- [ ] Play, reproduce current track. If the track is not inside the queue it is added to the queue and immediately reproduced. If there is an existing queue it is deleted and a new one is created with this track as the first element. If the bot is not connected in the channel where the user is then the bot connects to the channel.
+- [ ] Play, reproduce given track. 
+    - [x] If the bot is not connected in the channel where the user is and the bot is not in use then the bot connects to the channel.
+    - [x] If the track is not inside the queue and the queue is empty it is added to the queue and immediately reproduced.
+    - [ ] If there is an existing queue it is deleted and a new one is created with this track as the first element. 
 - [ ] Pause, blocks the track at the current time a start operation restarts from the time at which the song was paused. If the song is paused for more than a minute the bot disconnects
 - [ ] Stop, blocks the track and goes back at the beginning a start operation restarts the song from the beginning. If the song is stopped for more than a minute the bot disconnects
 - [ ] Restart, stop + play in a single command

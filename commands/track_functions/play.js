@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { joinVoiceChannel, getVoiceConnection, VoiceConnectionStatus , createAudioResource } = require('@discordjs/voice');
-const { useMasterPlayer } = require('discord-player');
+const { useMasterPlayer, useQueue } = require('discord-player');
 const { QueryType } = require('discord-player');
 var flag = true;
 module.exports = {
@@ -33,7 +33,6 @@ module.exports = {
         var connection = getVoiceConnection(interaction.guild.id);
         const channel = interaction.member.voice.channel;
         if(!connection){
-            //REMOVE COMMENTS TO MAKE IT WORK PROPERLY
             if(!channel){
                 await interaction.editReply(`You need to be in a voice channel`);
                 return;
@@ -42,6 +41,49 @@ module.exports = {
                 channelId: channel.id,
                 guildId: interaction.guild.id,
                 adapterCreator: interaction.guild.voiceAdapterCreator,
+            });
+        }
+
+        var queue = useQueue(interaction.guild.id);
+        if(!queue){
+            queue = player.nodes.create(interaction.guild, {
+                metadata: {
+                    channel: interaction.channel,
+                    client: interaction.guild.members.me,
+                    requestedBy: interaction.user,
+                },
+                selfDeaf: true,
+                volume: 80,
+                leaveOnEmpty: true,
+                leaveOnEmptyCooldown: 300000,
+                leaveOnEnd: true,
+                leaveOnEndCooldown: 300000,
+            });
+        }
+        
+        console.log(connection.joinConfig.channelId, channel.id, queue.isEmpty(), queue.isPlaying());
+        if(connection.joinConfig.channelId !== channel.id && (!queue.isEmpty() || queue.isPlaying()))
+            return await interaction.editReply({content: `❌ Bot already in use in another channel :/`, ephemeral:true, allowedMentions: { repliedUser: false} })
+
+        if(connection.joinConfig.channelId !== channel.id && (queue.isEmpty() && !queue.isPlaying())){
+            queue.delete();
+            connection = joinVoiceChannel({
+                channelId: channel.id,
+                guildId: interaction.guild.id,
+                adapterCreator: interaction.guild.voiceAdapterCreator,
+            });
+            queue = player.nodes.create(interaction.guild, {
+                metadata: {
+                    channel: interaction.channel,
+                    client: interaction.guild.members.me,
+                    requestedBy: interaction.user,
+                },
+                selfDeaf: true,
+                volume: 80,
+                leaveOnEmpty: true,
+                leaveOnEmptyCooldown: 300000,
+                leaveOnEnd: true,
+                leaveOnEndCooldown: 300000,
             });
         }
 
@@ -67,19 +109,7 @@ module.exports = {
             if(!res || !res.tracks.length) return interaction.editReply({ content: `No results found ${interaction.member}... try again ? ❌`, ephemeral: true });
         }
       
-        const queue = player.nodes.create(interaction.guild, {
-            metadata: {
-                channel: interaction.channel,
-                client: interaction.guild.members.me,
-                requestedBy: interaction.user,
-            },
-            selfDeaf: true,
-            volume: 80,
-            leaveOnEmpty: true,
-            leaveOnEmptyCooldown: 300000,
-            leaveOnEnd: true,
-            leaveOnEndCooldown: 300000,
-        });
+        
 
         try {
             if (!queue.connection)
@@ -87,7 +117,7 @@ module.exports = {
         } catch (error) {
             console.log(error);
             if (!queue?.deleted) queue?.delete();
-            return interaction.editReply({ content: `❌ | I can't join audio channel.`, allowedMentions: { repliedUser: false } });
+            return interaction.editReply({ content: `❌ I can't join audio channel.`, allowedMentions: { repliedUser: false } });
         }
         var descriptionStr = "";
         var title;
@@ -124,7 +154,7 @@ module.exports = {
             await queue.node.play()
                 .catch((error) => {
                     console.error(error);
-                    return interaction.editReply({ content: `❌ | I can't play this track.`, allowedMentions: { repliedUser: false } });
+                    return interaction.editReply({ content: `❌ I can't play this track.`, allowedMentions: { repliedUser: false } });
                 });
         }
         
