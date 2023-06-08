@@ -55,13 +55,16 @@ module.exports = {
                 selfDeaf: true,
                 volume: 80,
                 leaveOnEmpty: true,
-                leaveOnEmptyCooldown: 300000,
+                leaveOnEmptyCooldown: 5000,
                 leaveOnEnd: true,
-                leaveOnEndCooldown: 300000,
+                leaveOnEndCooldown: 5000,
+                leaveOnStop: true,
+                leaveOnStopCooldown: 5000,
+                skipOnNoStream: true,
+                connectionTimeout: 999_999_999
             });
         }
         
-        console.log(connection.joinConfig.channelId, channel.id, queue.isEmpty(), queue.isPlaying());
         if(connection.joinConfig.channelId !== channel.id && (!queue.isEmpty() || queue.isPlaying()))
             return await interaction.editReply({content: `❌ Bot already in use in another channel :/`, ephemeral:true, allowedMentions: { repliedUser: false} })
 
@@ -81,9 +84,13 @@ module.exports = {
                 selfDeaf: true,
                 volume: 80,
                 leaveOnEmpty: true,
-                leaveOnEmptyCooldown: 300000,
+                leaveOnEmptyCooldown: 5000,
                 leaveOnEnd: true,
-                leaveOnEndCooldown: 300000,
+                leaveOnEndCooldown: 5000,
+                leaveOnStop: true,
+                leaveOnStopCooldown: 5000,
+                skipOnNoStream: true,
+                connectionTimeout: 999_999_999
             });
         }
 
