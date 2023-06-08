@@ -7,7 +7,7 @@ When elements are removed the queue shifts of a position from the deleted elemen
 - [ ] Remove, removes a track from the queue given its place inside the queue
 - [x] Show, shows the elements in order inside the queue, TODO: show the whole queue
 - [x] Shuffle, changes the order inside the queue in a pseudo random way
-- [ ] Delete, deletes the whole queue
+- [x] Clear, deletes the whole queue
 
 ### **Single song operations**
 - [x] Play, reproduce given track. 
