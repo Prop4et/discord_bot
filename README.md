@@ -15,9 +15,9 @@ When elements are removed the queue shifts of a position from the deleted elemen
     - [x] If the track is not inside the queue it is added to the queue and reproduced following the queue order.
 - [x] Pause, blocks the track at the current time a start operation restarts from the time at which the song was paused. If the song is paused for more than 5 minutes the bot 
 disconnects
-- [x] Resume
+- [x] Resume, resumes the song from when it was paused
 - [x] Skip, goes to the next track, if any
-- [ ] Stop, blocks the track and goes back at the beginning a start operation restarts the song from the beginning. If the song is stopped for more than 5 minutes the bot disconnects
+- [ ] Stop, blocks the track and goes back at the beginning a start operation restarts the song from the beginning. If the song is stopped for more than 5 minutes the bot disconnects (TBD)
 - [ ] Restart, stop + play in a single command
 - [ ] Forward, forwards a number of seconds in the track
 - [ ] Backward, backwards a number of seconds in the track

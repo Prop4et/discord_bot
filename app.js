@@ -1,9 +1,7 @@
 const fs = require('node:fs')
 const path = require('node:path')
-const { Queue } = require('./queue')
 // Require the necessary discord.js classes
-const { Client, GatewayIntentBits, Collection, Options } = require('discord.js');
-const { createAudioPlayer, NoSubscriberBehavior } = require('@discordjs/voice');
+const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const { token } = require('./config.json');
 const { Player } = require('discord-player');
 const { YouTubeExtractor } = require("@discord-player/extractor");
