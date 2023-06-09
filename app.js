@@ -17,7 +17,8 @@ const player = new Player(client, {
 });
 
 client.config = cst.config;
-
+client.currentslice = 0;
+client.slices = 0;
 player.extractors.register(YouTubeExtractor);
 
 player.events.on('disconnect', (queue) => {

@@ -146,6 +146,7 @@ module.exports = {
             url = res.tracks[0].url;
             thumbnail = res.tracks[0].thumbnail;
         }
+        interaction.client.slices = queue.size/10;
 
         const embed = new EmbedBuilder()
             .setColor(0xFFFFFF)

@@ -34,6 +34,7 @@ module.exports = {
             return interaction.reply({ content: `❌ List out of bounds.`, allowedMentions: { repliedUser: false } });
 
         queue.node.remove(pos);
+        interaction.client.slices = queue.size/10;
         await interaction.reply(`🗑️ ${tracks[pos]} removed`);
 	},
 };

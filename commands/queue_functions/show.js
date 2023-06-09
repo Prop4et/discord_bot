@@ -27,7 +27,12 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setColor(0xFFFFFF)
             .setTitle(nowplaying)
-            .setFooter({text:  `Showing ${tracklength}/${tracks.length} tracks`})
+            .setFooter({text:  `Showing from track 1 to track ${tracklength} of ${tracks.length} tracks`})
+
+        tracklength == 1 ?
+            embed.setFooter({text:  `Showing track 1 of ${tracks.length} tracks`}) : 
+            embed.setFooter({text:  `Showing from track 1 to track ${tracklength} of ${tracks.length} tracks`})
+
 
         for(var i = 0; i<tracklength; i++)
             tracksq += `${tracks[i]}\n`;
@@ -35,7 +40,11 @@ module.exports = {
             tracksq = '---------------------------';    
         embed.setDescription(tracksq)
 
-        await interaction.reply({embeds: [embed]});
-        
+
+        const message = await interaction.reply({ embeds: [embed], fetchReply: true });
+        if(tracks.length > 10){
+            await message.react('◀️');
+            await message.react('▶️');
+        }
 	},
 };
