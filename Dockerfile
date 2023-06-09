@@ -5,9 +5,11 @@ WORKDIR /bot
 # RUN dnf update -y
 RUN apt update -y
 
-COPY . .
-
+COPY package.json .
 RUN npm install
 RUN npm install play-dl
 RUN apt-get install -y ffmpeg
+
+COPY . .
+
 CMD [ "npm", "run", "start" ]
